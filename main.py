@@ -44,7 +44,12 @@ def fetch_tweet_list(keyword: str) -> list:
 
 def extract_noun(text_list: list) -> list:
     noun_list = []  # type: list
-    tagger = MeCab.Tagger("-d " + MECAB_DICT_PATH)
+    try:
+        tagger = MeCab.Tagger("-d " + MECAB_DICT_PATH)
+        print("mecab_dict=" + MECAB_DICT_PATH)
+    except RuntimeError:
+        tagger = MeCab.Tagger()
+        print("mecab_dict=None")
 
     for text in text_list:
         parse = tagger.parse(text)
