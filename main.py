@@ -52,6 +52,7 @@ def extract_noun(text_list: list) -> list:
         print("mecab_dict=None")
 
     for text in text_list:
+        text = remove_emoji(text)
         parse = tagger.parse(text)
         word = parse.split("\t")[0]
         if word == "EOS":
