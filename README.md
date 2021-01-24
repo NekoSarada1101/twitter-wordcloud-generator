@@ -28,7 +28,7 @@ git clone https://github.com/NekoSarada1101/twitter-wordcloud-generator.git
 
 ```
 cd twitter-wordcloud-generator
-python main.py
+python main.py {keyword}
 ```
 
 ### オプション
