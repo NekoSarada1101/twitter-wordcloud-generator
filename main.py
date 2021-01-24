@@ -3,6 +3,8 @@ import json
 import sys
 import emoji
 import MeCab
+from datetime import datetime
+from wordcloud import WordCloud
 from settings import *
 
 
@@ -10,6 +12,7 @@ def main(keyword: str):
     remove_emoji_keyword = remove_emoji(keyword)  # type: str
     tweet_list = fetch_tweet_list(remove_emoji_keyword)  # type: list
     noun_list = extract_noun(tweet_list)  # type: list
+    create_word_cloud(noun_list)
 
 
 def remove_emoji(src_str: str) -> str:
@@ -54,6 +57,17 @@ def extract_noun(text_list: list) -> list:
             if speech == "名詞":
                 noun_list.append(word)
     return noun_list
+
+
+def create_word_cloud(noun_list: list):
+    stop_words = ["RT", "@", 'もの', 'こと', 'とき', 'そう', 'たち', 'これ', 'よう', 'これら', 'それ', 'すべて',
+                  'https']  # type: list
+    word_chain = ' '.join(noun_list)
+    word_cloud = WordCloud(background_color="white", font_path=FONT_PATH, contour_color='steelblue',
+                           collocations=False,
+                           contour_width=3, width=900, height=500,
+                           stopwords=set(stop_words)).generate(word_chain)
+    word_cloud.to_file("./word_cloud/wc_" + datetime.today().strftime("%Y%m%d%H%M%S") + ".png")
 
 
 if __name__ == "__main__":
