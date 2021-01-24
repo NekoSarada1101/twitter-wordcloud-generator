@@ -1,0 +1,5 @@
+requests
+emoji
+wordcloud
+mecab-python3
+unidic-lite
