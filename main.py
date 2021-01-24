@@ -72,7 +72,9 @@ def create_word_cloud(noun_list: list):
                            collocations=False,
                            contour_width=3, width=900, height=500,
                            stopwords=set(stop_words)).generate(word_chain)
-    word_cloud.to_file("./word_cloud/wc_" + datetime.today().strftime("%Y%m%d%H%M%S") + ".png")
+    file = datetime.today().strftime("%Y%m%d%H%M%S")
+    word_cloud.to_file("./word_cloud/wc_" + file + ".png")
+    print("export_image=./word_cloud/wc_" + file + ".png")
 
 
 if __name__ == "__main__":
