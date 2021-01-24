@@ -2,12 +2,14 @@ import requests
 import json
 import sys
 import emoji
+import MeCab
 from settings import *
 
 
 def main(keyword: str):
     remove_emoji_keyword = remove_emoji(keyword)  # type: str
     tweet_list = fetch_tweet_list(remove_emoji_keyword)  # type: list
+    noun_list = extract_noun(tweet_list)  # type: list
 
 
 def remove_emoji(src_str: str) -> str:
@@ -35,6 +37,23 @@ def fetch_tweet_list(keyword: str) -> list:
             print(KeyError)
 
     return tweet_list
+
+
+def extract_noun(text_list: list) -> list:
+    noun_list = []  # type: list
+    tagger = MeCab.Tagger("-d " + MECAB_DICT_PATH)
+
+    for text in text_list:
+        parse = tagger.parse(text)
+        word = parse.split("\t")[0]
+        if word == "EOS":
+            break
+        else:
+            pos = parse.split("\t")[1]
+            speech = pos.split(",")[0]
+            if speech == "名詞":
+                noun_list.append(word)
+    return noun_list
 
 
 if __name__ == "__main__":
