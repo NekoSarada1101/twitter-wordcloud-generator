@@ -46,3 +46,6 @@ python main.py {keyword}
 * WordCloud生成に使うツイートの数を変更する。  
   [settings.py](https://github.com/NekoSarada1101/twitter-wordcloud-generator/blob/main/settings.py)
   のTWEET_COUNTを取得したいツイートの数/100に書き換える。
+
+## ライセンス
+[MIT](https://github.com/NekoSarada1101/twitter-wordcloud-generator/blob/main/LICENSE)
